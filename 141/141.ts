@@ -30,4 +30,19 @@ function hasCycle(head: ListNode | null): boolean {
 
 const solve1 = hasCycle;
 
+const solve2 = (head: ListNode | null): boolean => {
+    const visited = new Set<ListNode>();
+
+    let curr = head;
+    while (curr) {
+        if (visited.has(curr)) {
+            return true;
+        }
+        visited.add(curr);
+        curr = curr.next;
+    }
+
+    return false;
+};
+
 export {};
