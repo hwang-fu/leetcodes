@@ -20,4 +20,19 @@ function moveZeroes(nums: number[]): void {
 
 const moveZeroes1 = moveZeroes;
 
+const moveZeroes2 = (nums: number[]): void => {
+    // 1. move all non-zero elements to the front.
+    let l = 0;
+    for (let r = 0; r < nums.length; r++) {
+        if (nums[i] !== 0) {
+            nums[l++] = nums[r];
+        }
+    }
+
+    // 2. fill the rest with zeros.
+    while (l < nums.length) {
+        nums[l++] = 0;
+    }
+};
+
 export {};
