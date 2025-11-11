@@ -13,7 +13,7 @@ function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
     }
 
     const dummy = new ListNode();
-    let head = dummy;
+    let tail = dummy;
 
     const n = lists.length;
     let stop = false;
@@ -34,8 +34,8 @@ function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
 
         if (val !== Infinity) {
             lists[idx] = lists[idx].next;
-            head.next = new ListNode(val);
-            head = head.next;
+            tail.next = new ListNode(val);
+            tail = tail.next;
         }
 
         stop = true;
