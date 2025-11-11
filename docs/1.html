@@ -1,0 +1,260 @@
+<!-- * * * * * * * * * * * * * * -->
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LeetCode #1 – Two Sum (TypeScript)</title>
+
+    <!-- Prism line-numbers theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.css" />
+
+    <!-- Prism core + autoloader + line-numbers -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"
+            data-prismjs-autoloader-path="https://cdn.jsdelivr.net/npm/prismjs/components/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: system-ui, sans-serif;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        .hl-red      { background-color: red; }
+        .hl-green    { background-color: green; }
+        .hl-blue     { background-color: blue; }
+        .hl-yellow   { background-color: yellow; }
+
+        .hl-red-bg    { background-color: red; }
+        .hl-green-bg  { background-color: green; }
+        .hl-blue-bg   { background-color: blue; }
+        .hl-yellow-bg { background-color: yellow; }
+
+        .hl-red-fg    { color: red; }
+        .hl-green-fg  { color: green; }
+        .hl-blue-fg   { color: blue; }
+        .hl-yellow-fg { color: yellow; }
+        .hl-grey-fg   { color: grey; }
+        .hl-black-fg  { color: black; }
+
+        .comment {
+            color: grey;
+        }
+
+        .red-underline {
+            text-decoration-line: underline;
+            text-decoration-color: red;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 2px;
+        }
+
+        body {
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", serif;
+            font-variant-ligatures: none;
+        }
+
+        ul > li {
+            list-style-type: disc;
+        }
+
+        code {
+            color: #24292e;
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: .375rem;
+            padding: .15rem .35rem;
+            font-family: "FiraCode Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        pre {
+            margin: 1rem 0;
+            padding: .8rem 1rem;
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: .5rem;
+            overflow: auto;
+            tab-size: 4;
+        }
+
+        pre code {
+            display: block;
+            padding: 0;
+            background: transparent;
+            border: 0;
+            color: #24292e;
+            font-family: "FiraCode Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            white-space: pre;
+        }
+    </style>
+</head>
+<!-- * * * * * * * * * * * * * * -->
+<body>
+<!-- * * * * * * * * * * * * * * -->
+
+<hr/>
+<h1>LeetCode #1 – Two Sum</h1>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Problem Statement</h3>
+<ol>
+    <li><b>Task</b></li>
+    <br/>
+    <ul>
+        <li>Given an array of integers <code>nums</code> and an integer <code>target</code>, return <b>indices</b> of the two numbers such that they add up to <code>target</code>.</li>
+        <br/>
+        <li>Constraints from the original problem:
+            <ul>
+                <li>Exactly one valid solution exists.</li>
+                <li>You may not use the same element twice.</li>
+                <li>The answer can be returned in any order.</li>
+            </ul>
+        </li>
+        <br/>
+        <li>Example:
+            <ul>
+                <li><code>nums = [2, 7, 11, 15]</code>, <code>target = 9</code></li>
+                <li>Answer: <code>[0, 1]</code> because <code>nums[0] + nums[1] = 2 + 7 = 9</code>.</li>
+            </ul>
+        </li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Brute Force Solution (O(n²))</h3>
+
+<ol>
+    <li><b>Idea</b></li>
+    <br/>
+    <ul>
+        <li>Check all pairs <code>(i, j)</code> with <code>i &lt; j</code> and see if <code>nums[i] + nums[j] === target</code>.</li>
+        <li>Return the first pair of indices that satisfies the condition.</li>
+    </ul>
+    <br/>
+
+    <li><b>Core Loop Structure</b></li>
+<pre><code class="language-ts line-numbers">function twoSum(nums: number[], target: number): number[] {
+    for (let i = 0; i &lt; nums.length; i++) {
+        for (let j = i + 1; j &lt; nums.length; j++) {
+            if (nums[i] + nums[j] === target) {
+                return [i, j];
+            }
+        }
+    }
+}
+</code></pre>
+    <ul>
+        <li>Outer loop picks the first index <code>i</code>.</li>
+        <li>Inner loop picks the second index <code>j</code> such that <code>j &gt; i</code> (no duplicates, no self-pairing).</li>
+        <li>If the sum matches <code>target</code>, we immediately return the indices.</li>
+        <li>Because LeetCode guarantees a solution, we don't need explicit handling for "no answer".</li>
+    </ul>
+    <br/>
+
+    <li><b>Complexity</b></li>
+    <br/>
+    <ul>
+        <li>Time: we check roughly <code>n(n-1)/2</code> pairs ⇒ <b>O(n²)</b>.</li>
+        <li>Space: only uses a few local variables ⇒ <b>O(1)</b>.</li>
+        <li>Good for understanding, but not optimal for larger arrays.</li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Optimized Hash Map Solution (O(n))</h3>
+
+<ol>
+    <li><b>High-Level Idea</b></li>
+    <br/>
+    <ul>
+        <li>Instead of scanning all pairs, we remember numbers we have seen so far in a hash map.</li>
+        <li>For each element <code>nums[i]</code>, we look for its "partner"
+            <code>diff = target - nums[i]</code> in the map:
+            <ul>
+                <li>If <code>diff</code> is already in the map, we found a pair.</li>
+                <li>Otherwise, we store <code>nums[i]</code> and its index, then move on.</li>
+            </ul>
+        </li>
+    </ul>
+    <br/>
+
+    <li><b>Core Logic</b></li>
+<pre><code class="language-ts line-numbers">const memo = new Map&lt;number, number&gt;();
+
+for (let i = 0; i &lt; nums.length; i++) {
+    const diff = target - nums[i];
+
+    if (memo.has(diff)) {
+        // We have seen `diff` before at index memo.get(diff)
+        return [memo.get(diff)!, i];
+    }
+
+    // Remember the current number and its index
+    memo.set(nums[i], i);
+}
+</code></pre>
+    <ul>
+        <li><code>memo</code> maps a number to its index (e.g. <code>memo.get(2) === 0</code> if <code>nums[0] === 2</code>).</li>
+        <li>At each step:
+            <ul>
+                <li>Compute the complementary value <code>diff</code>.</li>
+                <li>If we have already seen <code>diff</code>, then <code>nums[memo.get(diff)] + nums[i] === target</code>.</li>
+                <li>Otherwise, store the current number so that future elements can pair with it.</li>
+            </ul>
+        </li>
+        <li>In strict TypeScript, <code>memo.get(diff)</code> may be <code>undefined</code>, so a non-null assertion
+            <code>!</code> or an extra check is used. Logically we are safe here because we only call <code>get</code> if <code>has(diff)</code> is true.</li>
+    </ul>
+    <br/>
+
+    <li><b>Complexity</b></li>
+    <br/>
+    <ul>
+        <li>We traverse the array once, and each map operation is on average <b>O(1)</b>.</li>
+        <li>Time: <b>O(n)</b>.</li>
+        <li>Space: we store at most <code>n</code> entries in the map ⇒ <b>O(n)</b>.</li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<footer>
+    <p>&copy; 2025 Hwangfucius. All rights reserved.</p>
+</footer>
+
+</body>
+<!-- * * * * * * * * * * * * * * -->
+</html>
+<!-- * * * * * * * * * * * * * * -->
