@@ -1,102 +1,142 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>LeetCode Solutions – by Hwangfucius</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      font-family: "Georgia", "Times New Roman", serif;
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 0 20px;
-      line-height: 1.6;
-      color: #222;
-      background-color: #fafafa;
-    }
+    <meta charset="utf-8" />
+    <title>LeetCode Solutions – by Hwangfucius</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: "Georgia", "Times New Roman", serif;
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px 40px;
+            line-height: 1.6;
+            color: #222;
+            background-color: #fafafa;
+        }
 
-    h1, h2 {
-      color: #333;
-    }
+        h1, h2 {
+            color: #333;
+            margin-top: 0;
+        }
 
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.25em;
+            text-align: center;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        .subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1.5em;
+        }
 
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
 
-    li {
-      margin: 8px 0;
-    }
+        a:hover {
+            text-decoration: underline;
+        }
 
-    ul > li {
-        list-style-type: disc;
-    }
+        .section {
+            margin-top: 2rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #ddd;
+        }
 
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 0.95em;
-      background: #f0f0f0;
-      padding: 0.1rem 0.3rem;
-      border-radius: 3px;
-    }
+        .section:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
 
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #555;
-      border-top: 1px solid #ddd;
-      padding-top: 10px;
-      text-align: center;
-    }
-  </style>
+        .section p {
+            margin: 0.4em 0 0.6em;
+        }
+
+        .problem-list {
+            list-style-type: disc;
+            padding-left: 1.4rem;
+            margin: 0.3em 0 0.2em;
+        }
+
+        .problem-list li {
+            margin: 6px 0;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.95em;
+            background: #f0f0f0;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-  <h1>LeetCode Solutions</h1>
+    <h1>LeetCode (LC)</h1>
+    <p class="subtitle">Personal notes and TypeScript implementations by Hwangfucius.</p>
 
-  <p>
-    This site collects my solutions and notes for problems on
-    <a href="https://leetcode.com" target="_blank">LeetCode</a>.
-    Each problem page may include:
-  </p>
+    <section class="section">
+        <h2>About</h2>
+        <p>
+            This page collects my personal solutions for various problems from
+            <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">LeetCode</a>.
+            Each page includes the code, reasoning, and alternative ideas when relevant.
+        </p>
+    </section>
 
-  <ul>
-    <li>My solution in one or more programming languages</li>
-    <li>Extra notes, pitfalls, or alternative approaches</li>
-  </ul>
+    <section class="section">
+        <h2>Problem List</h2>
+        <ul class="problem-list">
+            <li><a href="docs/1.html">Problem 1 – Two Sum</a></li>
+            <!--<li><a href="docs/.html"></a></li>-->
+        </ul>
+    </section>
 
-  <h2>Problem List</h2>
-  <ul>
-      <li><a href="docs/1.html">1. Two Sum</a></li>
-      <!--<li><a href="docs/.html"></a></li>-->
-  </ul>
+    <section class="section">
+        <h2>How This Project Is Organized</h2>
+        <p>
+            The layout is intentionally minimal and mirrors my <a href="https://hwang-fu.github.io/project-euler">Project Euler</a> setup:
+        </p>
+        <ul class="problem-list">
+            <li>Each problem is stored as its own HTML file under <code>docs/</code>.</li>
+            <li>Every page uses consistent styling and lightweight explanations.</li>
+            <li>Code snippets are written in TypeScript unless otherwise specified.</li>
+            <li>When needed, I may link to full source files in my GitHub repo.</li>
+        </ul>
+    </section>
 
-  <h2>How I Organize This Project</h2>
-  <p>
-    The structure is intentionally simple:
-  </p>
-  <ul>
-    <li>Each problem has its own HTML page under <code>docs/</code>.</li>
-    <li>Code snippets are embedded directly in the page for easy reading.</li>
-    <li>When needed, I may link to the original source files in the repository.</li>
-  </ul>
+    <section class="section">
+        <h2>Repository</h2>
+        <p>
+            All solution files are versioned in my GitHub
+            <a href="https://github.com/hwang-fu/leetcode"
+               target="_blank" rel="noopener noreferrer">
+               repository.
+            </a>
+        </p>
+    </section>
 
-  <footer>
-    © 2025 Hwangfucius ·
-    <a href="https://github.com/hwang-fu">GitHub</a> ·
-    <a href="https://leetcode.com">LeetCode</a>
-  </footer>
+    <footer>
+        © 2025 Hwangfucius ·
+        <a href="https://github.com/hwang-fu" target="_blank" rel="noopener noreferrer">GitHub</a> ·
+        <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">LeetCode</a>
+    </footer>
 
 </body>
 </html>
-
 
