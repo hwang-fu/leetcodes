@@ -121,7 +121,26 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">
+<pre><code class="language-ts line-numbers">function twoSum(numbers: number[], target: number): number[] {
+    let l = 0;
+    let r = numbers.length - 1;
+    while (l &lt; r) {
+        const sum = numbers[l] + numbers[r];
+        if (sum &lt; target) {
+            l++;
+            while (l &lt; r &amp;&amp; numbers[l] === numbers[l-1]) l++;
+        }
+        else if (sum &gt; target) {
+            r--;
+            while (l &lt; r &amp;&amp; numbers[r] === numbers[r+1]) r--;
+        }
+        else {
+            return [l + 1, r + 1];
+        }
+    }
+
+    return [];
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
