@@ -121,7 +121,34 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">
+<pre><code class="language-ts line-numbers">function threeSumClosest(nums: number[], target: number): number {
+    nums.sort((a, b) =&gt; a - b);
+    let closest = Infinity;
+
+    const n = nums.length;
+    for (let i = 0; i &lt; n - 2; i++) {
+        const num = nums[i];
+        let l = i + 1;
+        let r = n - 1;
+        while (l &lt; r) {
+            const sum = num + nums[l] + nums[r];
+            if (Math.abs(sum - target) &lt; Math.abs(closest - target)) {
+                closest = sum;
+            }
+            if (sum &lt; target) {
+                l++;
+            }
+            else if (sum &gt; target) {
+                r--;
+            }
+            else {
+                return sum;
+            }
+        }
+    }
+
+    return closest;
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
