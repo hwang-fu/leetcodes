@@ -1,0 +1,326 @@
+<!-- * * * * * * * * * * * * * * -->
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LeetCode #3 – Longest Substring Without Repeating Characters (TypeScript)</title>
+
+    <!-- Prism line-numbers theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.css" />
+
+    <!-- Prism core + autoloader + line-numbers -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"
+            data-prismjs-autoloader-path="https://cdn.jsdelivr.net/npm/prismjs/components/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: system-ui, sans-serif;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        .hl-red      { background-color: red; }
+        .hl-green    { background-color: green; }
+        .hl-blue     { background-color: blue; }
+        .hl-yellow   { background-color: yellow; }
+
+        .hl-red-bg    { background-color: red; }
+        .hl-green-bg  { background-color: green; }
+        .hl-blue-bg   { background-color: blue; }
+        .hl-yellow-bg { background-color: yellow; }
+
+        .hl-red-fg    { color: red; }
+        .hl-green-fg  { color: green; }
+        .hl-blue-fg   { color: blue; }
+        .hl-yellow-fg { color: yellow; }
+        .hl-grey-fg   { color: grey; }
+        .hl-black-fg  { color: black; }
+
+        .comment {
+            color: grey;
+        }
+
+        .red-underline {
+            text-decoration-line: underline;
+            text-decoration-color: red;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 2px;
+        }
+
+        body {
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", serif;
+            font-variant-ligatures: none;
+        }
+
+        ul > li {
+            list-style-type: disc;
+        }
+
+        code {
+            color: #24292e;
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: .375rem;
+            padding: .15rem .35rem;
+            font-family: "FiraCode Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        pre {
+            margin: 1rem 0;
+            padding: .8rem 1rem;
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: .5rem;
+            overflow: auto;
+            tab-size: 4;
+        }
+
+        pre code {
+            display: block;
+            padding: 0;
+            background: transparent;
+            border: 0;
+            color: #24292e;
+            font-family: "FiraCode Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            white-space: pre;
+        }
+    </style>
+</head>
+<!-- * * * * * * * * * * * * * * -->
+<body>
+<!-- * * * * * * * * * * * * * * -->
+
+<hr/>
+<h1>LeetCode #3 – Longest Substring Without Repeating Characters</h1>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Problem Statement</h3>
+<ol>
+    <li><b>Task</b></li>
+    <br/>
+    <ul>
+        <li>Given a string <code>s</code>, find the length of the <b>longest substring</b> without repeating characters.</li>
+        <li>A <b>substring</b> here means a contiguous block of characters in <code>s</code>.</li>
+        <br/>
+        <li>Examples:
+            <ul>
+                <li><code>s = "abcabcbb"</code> ⇒ answer is <code>3</code> (substring: <code>"abc"</code>).</li>
+                <li><code>s = "bbbbb"</code> ⇒ answer is <code>1</code> (substring: <code>"b"</code>).</li>
+                <li><code>s = "pwwkew"</code> ⇒ answer is <code>3</code> (substring: <code>"wke"</code>).</li>
+            </ul>
+        </li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Sliding Window with a Set (O(n))</h3>
+
+<ol>
+    <li><b>High-Level Idea</b></li>
+    <br/>
+    <ul>
+        <li>We want the longest window <code>[l, r]</code> such that all characters in <code>s[l..r]</code> are distinct.</li>
+        <li>Use a <code>Set</code> to track all characters currently in the window.</li>
+        <li>We maintain:
+            <ul>
+                <li><code>l</code>: left pointer (start of current window).</li>
+                <li><code>r</code>: right pointer (current character we are adding).</li>
+            </ul>
+        </li>
+        <li>While expanding <code>r</code>, if we see a character already in the set, we shrink from the left (<code>l++</code>) until that character is removed.</li>
+        <li>At each step, we update the answer with the current window size <code>r - l + 1</code>.</li>
+    </ul>
+    <br/>
+
+    <li><b>Core Logic (TypeScript)</b></li>
+    <br/>
+    <pre><code class="language-ts line-numbers">function lengthOfLongestSubstring(s: string): number {
+    const memo = new Set&lt;string&gt;();  // current window's characters
+
+    let ans = 0;
+    let l = 0;                        // left pointer
+
+    for (let r = 0; r &lt; s.length; r++) {
+        const c = s[r];
+
+        // If c is already in the window, shrink from the left
+        if (memo.has(c)) {
+            while (s[l] !== c) {
+                memo.delete(s[l]);
+                l++;
+            }
+            memo.delete(s[l]);  // remove the previous occurrence of c
+            l++;
+        }
+
+        memo.add(c);                   // extend window with s[r]
+
+        // Update the best length so far
+        if (r - l + 1 &gt; ans) {
+            ans = r - l + 1;
+        }
+    }
+
+    return ans;
+};
+
+const solution1 = lengthOfLongestSubstring;
+
+export {};
+</code></pre>
+
+    <ul>
+        <li><code>memo</code> always contains exactly the set of characters in the current window <code>s[l..r]</code>.</li>
+        <li>If the new character <code>c</code> is already in <code>memo</code>, the inner <code>while</code> loop shrinks the window from the left until the previous <code>c</code> is removed.</li>
+        <li>The window is always valid (no duplicates) when we reach the point where we update <code>ans</code>.</li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Example Walkthrough</h3>
+
+<p>Take <code>s = "pwwkew"</code>.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Step (r index)</th>
+            <th>Character</th>
+            <th>l (left)</th>
+            <th>Window s[l..r]</th>
+            <th>Set contents</th>
+            <th>ans</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>r = 0</td>
+            <td><code>'p'</code></td>
+            <td>0</td>
+            <td><code>"p"</code></td>
+            <td>{ p }</td>
+            <td>1</td>
+            <td>Add 'p', update ans = 1</td>
+        </tr>
+        <tr>
+            <td>r = 1</td>
+            <td><code>'w'</code></td>
+            <td>0</td>
+            <td><code>"pw"</code></td>
+            <td>{ p, w }</td>
+            <td>2</td>
+            <td>Add 'w', update ans = 2</td>
+        </tr>
+        <tr>
+            <td>r = 2</td>
+            <td><code>'w'</code></td>
+            <td>1</td>
+            <td><code>"ww"</code> → <code>"w"</code></td>
+            <td>{ w }</td>
+            <td>2</td>
+            <td>Duplicate 'w': move l forward, remove 'p', then old 'w'</td>
+        </tr>
+        <tr>
+            <td>r = 3</td>
+            <td><code>'k'</code></td>
+            <td>2</td>
+            <td><code>"wk"</code></td>
+            <td>{ w, k }</td>
+            <td>2</td>
+            <td>Add 'k', ans stays 2</td>
+        </tr>
+        <tr>
+            <td>r = 4</td>
+            <td><code>'e'</code></td>
+            <td>2</td>
+            <td><code>"wke"</code></td>
+            <td>{ w, k, e }</td>
+            <td>3</td>
+            <td>Add 'e', update ans = 3</td>
+        </tr>
+        <tr>
+            <td>r = 5</td>
+            <td><code>'w'</code></td>
+            <td>3</td>
+            <td><code>"kew"</code></td>
+            <td>{ k, e, w }</td>
+            <td>3</td>
+            <td>Duplicate 'w': shrink until previous 'w' removed, final window "kew"</td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<ul>
+    <li>The longest valid window length we saw was <code>3</code> (substrings <code>"wke"</code> or <code>"kew"</code>).</li>
+</ul>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Why This Is O(n)</h3>
+
+<ul>
+    <li>Each character is:
+        <ul>
+            <li>Added to the set at most once.</li>
+            <li>Removed from the set at most once.</li>
+        </ul>
+    </li>
+    <li>The left pointer <code>l</code> and right pointer <code>r</code> both move from <code>0</code> to <code>s.length - 1</code> without ever going backwards.</li>
+    <li>Therefore, the total number of operations is linear in the length of the string.</li>
+</ul>
+
+<br/>
+<ul>
+    <li><b>Time:</b> <b>O(n)</b>, where <code>n = s.length</code>.</li>
+    <li><b>Space:</b> <b>O(min(n, Σ))</b>, where Σ is the character set (we at most store each distinct character in the current window).</li>
+</ul>
+
+<br/>
+<hr/>
+
+<footer>
+    <p>&copy; 2025 Hwangfucius. All rights reserved.</p>
+</footer>
+
+</body>
+<!-- * * * * * * * * * * * * * * -->
+</html>
+<!-- * * * * * * * * * * * * * * -->
+
