@@ -1,0 +1,349 @@
+<!-- * * * * * * * * * * * * * * -->
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LeetCode #2 – Add Two Numbers (TypeScript)</title>
+
+    <!-- Prism line-numbers theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.css" />
+
+    <!-- Prism core + autoloader + line-numbers -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"
+            data-prismjs-autoloader-path="https://cdn.jsdelivr.net/npm/prismjs/components/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: system-ui, sans-serif;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        .hl-red      { background-color: red; }
+        .hl-green    { background-color: green; }
+        .hl-blue     { background-color: blue; }
+        .hl-yellow   { background-color: yellow; }
+
+        .hl-red-bg    { background-color: red; }
+        .hl-green-bg  { background-color: green; }
+        .hl-blue-bg   { background-color: blue; }
+        .hl-yellow-bg { background-color: yellow; }
+
+        .hl-red-fg    { color: red; }
+        .hl-green-fg  { color: green; }
+        .hl-blue-fg   { color: blue; }
+        .hl-yellow-fg { color: yellow; }
+        .hl-grey-fg   { color: grey; }
+        .hl-black-fg  { color: black; }
+
+        .comment {
+            color: grey;
+        }
+
+        .red-underline {
+            text-decoration-line: underline;
+            text-decoration-color: red;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 2px;
+        }
+
+        body {
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", serif;
+            font-variant-ligatures: none;
+        }
+
+        ul > li {
+            list-style-type: disc;
+        }
+
+        code {
+            color: #24292e;
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: .375rem;
+            padding: .15rem .35rem;
+            font-family: "FiraCode Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        pre {
+            margin: 1rem 0;
+            padding: .8rem 1rem;
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: .5rem;
+            overflow: auto;
+            tab-size: 4;
+        }
+
+        pre code {
+            display: block;
+            padding: 0;
+            background: transparent;
+            border: 0;
+            color: #24292e;
+            font-family: "FiraCode Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            white-space: pre;
+        }
+    </style>
+</head>
+<!-- * * * * * * * * * * * * * * -->
+<body>
+<!-- * * * * * * * * * * * * * * -->
+
+<hr/>
+<h1>LeetCode #2 – Add Two Numbers</h1>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Problem Statement</h3>
+<ol>
+    <li><b>Task</b></li>
+    <br/>
+    <ul>
+        <li>You are given two non-empty linked lists representing two non-negative integers.</li>
+        <li>The digits are stored in <b>reverse order</b>, and each node contains a single digit.</li>
+        <li>Add the two numbers and return the sum as a linked list (also in reverse order).</li>
+        <br/>
+        <li>Constraints (from the original problem):
+            <ul>
+                <li>Each linked list node stores a digit in the range <code>[0, 9]</code>.</li>
+                <li>The two numbers do not contain leading zeros, except for the number <code>0</code> itself.</li>
+            </ul>
+        </li>
+        <br/>
+        <li>Example:
+            <ul>
+                <li><code>l1 = [2, 4, 3]</code> (represents 342)</li>
+                <li><code>l2 = [5, 6, 4]</code> (represents 465)</li>
+                <li>Answer: <code>[7, 0, 8]</code> because <code>342 + 465 = 807</code>.</li>
+            </ul>
+        </li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Understanding the Linked List Representation</h3>
+
+<ol>
+    <li><b>Reverse Order Digits</b></li>
+    <br/>
+    <ul>
+        <li>Each list node holds a single digit, and the <b>head</b> of the list is the <b>least significant digit</b>.</li>
+        <li>Example: <code>2 → 4 → 3</code> means the number <code>342</code>, not <code>243</code>.</li>
+        <li>This is convenient because we can add numbers from right to left (like on paper) by starting at the list heads.</li>
+    </ul>
+    <br/>
+
+    <li><b>Different Lengths</b></li>
+    <br/>
+    <ul>
+        <li>The two lists can have different lengths, e.g. <code>[9, 9, 9]</code> and <code>[1]</code>.</li>
+        <li>When one list is shorter, we treat missing digits as <code>0</code> during addition.</li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Core Idea: Simulate Column-wise Addition (O(n))</h3>
+
+<ol>
+    <li><b>High-Level Idea</b></li>
+    <br/>
+    <ul>
+        <li>We walk through both lists <b>simultaneously</b>, digit by digit.</li>
+        <li>At each step, we:
+            <ul>
+                <li>Read the current digit from <code>l1</code> (or <code>0</code> if <code>l1</code> is <code>null</code>).</li>
+                <li>Read the current digit from <code>l2</code> (or <code>0</code> if <code>l2</code> is <code>null</code>).</li>
+                <li>Add them together with a <code>carry</code> from the previous step.</li>
+                <li>Create a new node whose value is the ones digit <code>sum % 10</code>.</li>
+                <li>Update <code>carry = Math.floor(sum / 10)</code>.</li>
+            </ul>
+        </li>
+        <li>We use a <b>dummy head node</b> to simplify building the result list.</li>
+        <li>If after processing all digits the <code>carry</code> is still non-zero, we append a final node.</li>
+    </ul>
+    <br/>
+
+    <li><b>Key Implementation Pattern</b></li>
+    <br/>
+    <pre><code class="language-ts line-numbers">/**
+ * Definition for singly-linked list.
+ */
+class ListNode {
+    val: number;
+    next: ListNode | null;
+
+    constructor(val?: number, next?: ListNode | null) {
+        this.val  = (val === undefined ? 0    : val);
+        this.next = (next === undefined ? null : next);
+    }
+}
+
+function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+    const dummy = new ListNode(); // dummy head of result list
+    let node = dummy;
+
+    let carry = 0;
+
+    // Traverse as long as there is at least one node left
+    while (l1 || l2) {
+        const sum =
+            carry +
+            (l1 ? l1.val : 0) +
+            (l2 ? l2.val : 0);
+
+        const digit = sum % 10;             // ones place
+        carry = Math.floor(sum / 10);       // tens place (carry)
+
+        node.next = new ListNode(digit);    // append new digit node
+        node = node.next;
+
+        l1 = l1?.next || null;              // move forward if possible
+        l2 = l2?.next || null;
+    }
+
+    // If we still have a carry (e.g. 999 + 1 = 1000)
+    if (carry !== 0) {
+        node.next = new ListNode(carry);
+    }
+
+    return dummy.next; // real head of the result list
+}
+
+const solution1 = addTwoNumbers;
+
+export {};
+</code></pre>
+
+    <ul>
+        <li><code>dummy</code> is a placeholder node that simplifies appending; the real result starts at <code>dummy.next</code>.</li>
+        <li>The loop continues as long as either <code>l1</code> or <code>l2</code> is not <code>null</code>.</li>
+        <li>We safely handle lists of different lengths by using <code>(l1 ? l1.val : 0)</code> and <code>(l2 ? l2.val : 0)</code>.</li>
+        <li>The final <code>if (carry !== 0)</code> handles cases like <code>9 + 1 = 10</code>, where we need one extra digit node.</li>
+    </ul>
+</ol>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Example Walkthrough</h3>
+
+<ul>
+    <li>Input:
+        <ul>
+            <li><code>l1 = [2, 4, 3]</code> ⇒ 342</li>
+            <li><code>l2 = [5, 6, 4]</code> ⇒ 465</li>
+        </ul>
+    </li>
+</ul>
+
+<br/>
+
+<table>
+    <thead>
+        <tr>
+            <th>Step</th>
+            <th>Digit from l1</th>
+            <th>Digit from l2</th>
+            <th>Previous carry</th>
+            <th>sum</th>
+            <th>New digit (sum % 10)</th>
+            <th>New carry (sum / 10)</th>
+            <th>Result list (so far)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1 (ones)</td>
+            <td>2</td>
+            <td>5</td>
+            <td>0</td>
+            <td>7</td>
+            <td>7</td>
+            <td>0</td>
+            <td>[7]</td>
+        </tr>
+        <tr>
+            <td>2 (tens)</td>
+            <td>4</td>
+            <td>6</td>
+            <td>0</td>
+            <td>10</td>
+            <td>0</td>
+            <td>1</td>
+            <td>[7, 0]</td>
+        </tr>
+        <tr>
+            <td>3 (hundreds)</td>
+            <td>3</td>
+            <td>4</td>
+            <td>1</td>
+            <td>8</td>
+            <td>8</td>
+            <td>0</td>
+            <td>[7, 0, 8]</td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<ul>
+    <li>Final result list: <code>[7, 0, 8]</code>, which represents <code>807</code>.</li>
+</ul>
+
+<br/>
+<hr/>
+
+<!-- * * * * * * * * * * * * * * -->
+<h3>Complexity</h3>
+
+<ul>
+    <li><b>Time:</b> We visit each node of <code>l1</code> and <code>l2</code> at most once ⇒ <b>O(n)</b>, where <code>n</code> is the length of the longer list.</li>
+    <li><b>Space:</b> We create a new list to store the result, with at most <code>n + 1</code> nodes (for the final carry) ⇒ <b>O(n)</b>.</li>
+</ul>
+
+<br/>
+<hr/>
+
+<footer>
+    <p>&copy; 2025 Hwangfucius. All rights reserved.</p>
+</footer>
+
+</body>
+<!-- * * * * * * * * * * * * * * -->
+</html>
+<!-- * * * * * * * * * * * * * * -->
+
