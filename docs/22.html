@@ -121,7 +121,26 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">
+<pre><code class="language-ts line-numbers">function generateParenthesis(n: number): string[] {
+    const ans: string[] = [];
+    const dfs = (s: string, open: number, close: number) =&gt; {
+        if (open === n &amp;&amp; close === n) {
+            ans.push(s);
+            return;
+        }
+
+        if (open &lt; n) {
+            dfs(s + "(", open + 1, close);
+        }
+
+        if (close &lt; open) {
+            dfs(s + ")", open, close + 1);
+        }
+    };
+
+    dfs("", 0, 0);
+    return ans;
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
