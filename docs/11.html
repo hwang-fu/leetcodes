@@ -121,7 +121,30 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">
+<pre><code class="language-ts line-numbers">function maxArea(height: number[]): number {
+    let ans = 0;
+
+    let l = 0;
+    let r = height.length - 1;
+
+    while (l &lt; r) {
+        const L = height[l];
+        const R = height[r];
+        const width = r - l;
+        const area = width * Math.min(L, R);
+        if (area &gt; ans) {
+            ans = area;
+        }
+        if (L &lt; R) {
+            l++;
+        }
+        else {
+            r--;
+        }
+    }
+
+    return ans;
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
