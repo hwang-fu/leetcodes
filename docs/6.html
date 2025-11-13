@@ -121,7 +121,31 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">
+<pre><code class="language-ts line-numbers">function convert(s: string, numRows: number): string {
+    if (numRows === 1 || numRows &gt;= s.length) {
+        return s;
+    }
+
+    const ans: string[][] = Array.from({ length: numRows }, () =&gt; []);
+
+    let direction = 1;
+    let idx = 0;
+
+    for (const c of s) {
+        ans[idx].push(c);
+
+        idx += direction;
+
+        if (idx === 0) {
+            direction = 1;      // bounce down
+        }
+        else if (idx === numRows-1) {
+            direction = -1;     // bounce up
+        }
+    }
+
+    return ans.flat().join("");
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
