@@ -121,7 +121,37 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">
+<pre><code class="language-ts line-numbers">function threeSum(nums: number[]): number[][] {
+    nums.sort((a, b) =&gt; a - b);
+
+    const ans: number[][] = [];
+    const n = nums.length;
+    for (let i = 0; i &lt; n - 2; i++) {
+        if (i &gt; 0 &amp;&amp; nums[i] === nums[i-1]) continue;
+
+        const target = -nums[i];
+        let l = i + 1;
+        let r = n - 1;
+        while (l &lt; r) {
+            const sum = nums[l] + nums[r];
+            if (sum &lt; target) {
+                l++;
+            }
+            else if (sum &gt; target) {
+                r--;
+            }
+            else {
+                ans.push([nums[i], nums[l], nums[r]]);
+                l++;
+                r--;
+                while (l &lt; r &amp;&amp; nums[l] === nums[l-1]) l++;
+                while (l &lt; r &amp;&amp; nums[r] === nums[r+1]) r--;
+            }
+        }
+    }
+
+    return ans;
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
