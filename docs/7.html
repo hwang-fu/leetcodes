@@ -121,7 +121,32 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">
+<pre><code class="language-ts line-numbers">function reverse(x: number): number {
+
+    const LIMIt_LOW = - (Math.pow(2, 31));
+    const LIMIt_HIGH = (Math.pow(2, 31) - 1);
+
+    const signed = x &lt; 0 ? true : false;
+    if (signed) {
+        x = -x;
+    }
+
+    let reversed = 0;
+    while (x) {
+        reversed *= 10;
+        reversed += (x % 10);
+        x = Math.floor(x / 10);
+    }
+
+    const ans = signed ? (-reversed) : (reversed);
+
+    if (ans &lt; LIMIt_LOW || ans &gt; LIMIt_HIGH) {
+        return 0;
+    }
+    else {
+        return ans;
+    }
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
