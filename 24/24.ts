@@ -12,20 +12,27 @@ function swapPairs(head: ListNode | null): ListNode | null {
         return head;
     }
 
-    const swap = (l1: ListNode, l2: ListNode): ListNode => {
+    type ListNodePair = {
+        first: ListNode;
+        second: ListNode;
+    };
+
+    const swap = (l1: ListNode, l2: ListNode): ListNodePair => {
         l1.next = l2.next;
         l2.next = l1;
-        return l2;
+        return { first: l2, second: l1 };
     }
 
-    const dummy = new ListNode(0, swap(head, head.next));
+    let pair = swap(head, head.next);
+    const dummy = new ListNode(0, pair.first);
 
-    let curr = dummy.next.next;
-    while (curr.next && curr.next.next) {
+    let curr = pair.second;
+    while (curr && curr.next && curr.next.next) {
         const l1 = curr.next;
         const l2 = curr.next.next;
-        curr.next = swap(l1, l2);
-        curr = curr.next.next;
+        pair = swap(l1, l2);
+        curr.next = pair.first;
+        curr = pair.second;
     }
 
     return dummy.next;
