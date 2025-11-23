@@ -1,4 +1,3 @@
-
 import qualified Data.Map.Strict as M
 import Data.List (foldl')
 
