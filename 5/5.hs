@@ -1,4 +1,3 @@
-import Text.Read (Lexeme(Char))
 -- There is a built-in index find in the Prelude
 -- [1, 2,3] !! 0 == 1
 find :: [] a -> Int -> a
