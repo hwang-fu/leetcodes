@@ -121,7 +121,8 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">function longestPalindrome(s: string): string {
+<pre><code class="language-ts line-numbers">// TypeScript
+function longestPalindrome(s: string): string {
     const expandAroundCenter = (l: number, r: number): number =&gt; {
         while (l &gt;= 0 &amp;&amp; r &lt;= s.length &amp;&amp; s[l] === s[r]) {
             l--;
@@ -146,6 +147,41 @@
 
     return s.substring(l, r + 1);
 };
+</code></pre>
+<!-- * * * * * * * * * * * * * * -->
+
+
+<hr/>
+
+
+<!-- * * * * * * * * * * * * * * -->
+<pre><code class="language-haskell line-numbers">-- Haskell
+longestPalindrome :: [] Char -&gt; [] Char
+longestPalindrome "" = ""
+longestPalindrome s  =
+    go 0 0 0
+  where
+    n = length s
+
+    expandAroundCenter :: Int -&gt; Int -&gt; Int
+    expandAroundCenter l r =
+        if (l &gt; 0) &amp;&amp; (r < n) &amp;&amp; (s !! l == s !! r)
+        then go (l - 1) (r + 1)
+        else r - l - 1
+
+    go :: Int -&gt; Int -&gt; Int -&gt; [] Char
+    go i bestStart bestLen
+      | i &gt;= n    = take bestLen (drop bestStart s)
+      | otherwise =
+        let oddLength  = expandAroundCenter s i i
+            evenLength = expandAroundCenter s i (i + 1)
+            len        = max oddLength evenLength
+            (bestStart', bestLen')
+              | len &gt; bestLen   =
+                  let start = i - (len - 1) `div` 2
+                  in (start, len)
+              | otherwise       = (bestStart, bestLen)
+        in go (i + 1) bestStart' bestLen'
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
