@@ -39,4 +39,30 @@ function evalRPN(tokens: string[]): number {
 
 const evalRPN1 = evalRPN;
 
+const evalRPN2 = (tokens: string[]): number => {
+    const stack: number[] = [];
+
+    const ops: Record<string, (a: number, b: number) => number> = {
+        '+': (a, b) => a + b;
+        '-': (a, b) => a - b;
+        '*': (a, b) => a * b;
+        '/': (a, b) => Math.trunc(a / b);
+    };
+
+    for (const token of tokens) {
+        const op = ops[token];
+
+        if (op) {
+            const r = stack.pop()!;
+            const l = stack.pop()!;
+            stack.push(op(l, r));
+        }
+        else {
+            stack.push(Number(token));
+        }
+    }
+
+    return stack.pop()!;
+};
+
 export {};
