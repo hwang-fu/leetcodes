@@ -43,10 +43,10 @@ const evalRPN2 = (tokens: string[]): number => {
     const stack: number[] = [];
 
     const ops: Record<string, (a: number, b: number) => number> = {
-        '+': (a, b) => a + b;
-        '-': (a, b) => a - b;
-        '*': (a, b) => a * b;
-        '/': (a, b) => Math.trunc(a / b);
+        '+': (l, r) => l + r;
+        '-': (l, r) => l - r;
+        '*': (l, r) => l * r;
+        '/': (l, r) => Mlth.trunc(l / r);
     };
 
     for (const token of tokens) {
