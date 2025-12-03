@@ -195,7 +195,49 @@ const minDistance2 = (word1: string, word2: string): number =&gt; {
 
 <!-- * * * * * * * * * * * * * * -->
 <pre><code class="language-haskell line-numbers">-- Haskell
+import Data.Array (array, (!))
+minDistance1 :: String -&gt; String -&gt; Int
+minDistance1 word1 word2 = dp ! (m, n)
+  where
+    m = length word1
+    n = length word2
+    -- to create a 2D array with indices from (0, 0) to (m, n)
+    dp = array ((0, 0), (m, n))
+         [((i, j), calc i j) | i &lt;- [0..m], j &lt;- [0..n]]
+    calc 0 j = j
+    calc i 0 = i
+    calc i j
+      | word1 !! (i - 1) == word2 !! (j - 1)
+        = dp ! (i - 1, j - 1)
+      | otherwise
+        = 1 + minimum [ dp ! (i - 1, j - 1)
+                      , dp ! (i,     j - 1)
+                      , dp ! (i - 1, j)
+                      ]
 
+
+minDistance2 :: String -&gt; String -&gt; Int
+minDistance2 word1 word2 = (dp !! m) !! n
+  where
+    m = length word1
+    n = length word2
+    dp = [
+           [ calc i j
+           | j &lt;- [0..n]
+           ]
+         | i &lt;- [0..m]
+         ]
+    calc :: Int -&gt; Int -&gt; Int
+    calc 0 j = j
+    calc i 0 = i
+    calc i j
+      | word1 !! (i - 1) == word2 !! (j - 1)
+      = (dp !! (i - 1)) !! (j - 1)
+      | otherwise
+      = 1 + minimum [ (dp !! (i - 1)) !! (j - 1)
+                    , (dp !! (i))     !! (j - 1)
+                    , (dp !! (i - 1)) !! (j)
+                    ]
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
