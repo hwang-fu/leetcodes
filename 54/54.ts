@@ -35,6 +35,45 @@ function spiralOrder(matrix: number[][]): number[] {
 };
 
 const spiralOrder2 = (matrix: number[][]): number[] => {
+  const ans: number[] = [];
+
+  let t = 0;                     // top
+  let b = matrix.length - 1;     // bottom
+  let l = 0;                     // left
+  let r = matrix[0].length - 1;  // right
+
+  while (t <= b && l <= r) {
+    // top row
+    for (let i = l; i <= r; i++) {
+      ans.push(matrix[t][i]);
+    }
+    t++;
+
+    // right column
+    for (let i = t; i <= b; i++) {
+      ans.push(matrix[i][r]);
+    }
+    r--;
+
+    // bottom row
+    if (t <= b) {
+      for (let i = r; i >= l; i--) {
+        ans.push(matrix[b][i]);
+      }
+      b--;
+    }
+
+    // left column
+    if (l <= r) {
+      for (let i = b; i >= t; i--) {
+        ans.push(matrix[i][l]);
+      }
+      l++;
+    }
+
+  }
+
+  return ans;
 };
 
 export {};
