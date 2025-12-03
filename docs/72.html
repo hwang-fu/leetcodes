@@ -247,7 +247,37 @@ minDistance2 word1 word2 = (dp !! m) !! n
 
 <!-- * * * * * * * * * * * * * * -->
 <pre><code class="language-scheme line-numbers">;; chez scheme
+(import (chezscheme))
 
+(define (min-distance word1 word2)
+  (let* ((m (string-length word1))
+          (n (string-length word2))
+          ;; 2D vector (m + 1) x (n + 1)
+          (dp (make-vector (+ m 1))))
+
+    (do ((i 0 (+ i 1)))
+        ((&gt; i m))
+      (vector-set! dp i (make-vector (+ n 1))))
+
+    (do ((i 1 (+ i 1)))
+        ((&gt; i m))
+      (vector-set! (vector-ref dp i) 0 i))
+
+    (do ((j 1 (+ j 1)))
+        ((&gt; j n))
+      (vector-set! (vector-ref dp 0) j j))
+
+    (do ((i 1 (+ i 1)))
+        ((&gt; i m))
+      (do ((j 1 (+ j 1)))
+          ((&gt; j n))
+        (if (char=? (string-ref word1 (- i 1)) (string-ref word2 (- j 1)))
+          (vector-set! (vector-ref dp i) j (vector-ref (vector-ref dp (- i 1)) (- j 1)))
+          (vector-set! (vector-ref dp i) j (+ 1 (min (vector-ref (vector-ref dp (- i 1)) (- j 1))
+                                                     (vector-ref (vector-ref dp (- i 1))       j)
+                                                     (vector-ref (vector-ref dp i)       (- j 1))))))))
+
+    (vector-ref (vector-ref dp m) n)))
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
