@@ -120,6 +120,91 @@
 
 <!-- * * * * * * * * * * * * * * -->
 <pre><code class="language-ts line-numbers">// TypeScript
+function minDistance1 = (word1: string, word2: string): number =&gt; {
+  const m = word1.length;
+  const n = word2.length;
+
+  const distances: number[][]= new Array(m + 1)
+    .fill(0)
+    .map(_ =&gt; new Array(n + 1).fill(0));
+
+  for (let i = 1; i &lt;= m; i++) {
+    distances[i][0] = i;
+  }
+
+  for (let j = 1; j &lt;= n; j++) {
+    distances[0][j] = j;
+  }
+
+  for (let i = 1; i &lt;= m; i++) {
+    for (let j = 1; j &lt;= n; j++) {
+      if (word1[i-1] === word2[j-1]) {
+        distances[i][j] = distances[i-1][j-1];
+      }
+      else {
+        distances[i][j] = 1 + Math.min(
+          distances[i-1][j],
+          distances[i][j-1],
+          distances[i-1][j-1]
+        );
+      }
+    }
+  }
+
+  return distances[m][n];
+};
+
+const minDistance2 = (word1: string, word2: string): number =&gt; {
+  const m = word1.length;
+  const n = word2.length;
+
+  // always make word1 the shorter one to minimize space
+  if (m &gt; n) {
+    return minDistance2(word2, word1);
+  }
+
+  let prev: number[] = new Array(m + 1).fill(0).map((_, i) =&gt; i);
+  let curr: number[] = new Array(m + 1).fill(0);
+
+  for (let j = 1; j &lt;= n; j++) {
+    curr[0] = j;
+    for (let i = 1; i &lt;= m; i++) {
+      if (word1[i-1] === word2[j-1]) {
+        curr[i] = prev[i-1];
+      }
+      else {
+        curr[i] = 1 + Math.min(
+          prev[i-1],
+          curr[i-1],
+          prev[i]
+        );
+      }
+    }
+
+    [prev, curr] = [curr, prev];
+  }
+
+  return prev[m];
+}
+</code></pre>
+<!-- * * * * * * * * * * * * * * -->
+
+
+<hr/>
+
+
+<!-- * * * * * * * * * * * * * * -->
+<pre><code class="language-haskell line-numbers">-- Haskell
+
+</code></pre>
+<!-- * * * * * * * * * * * * * * -->
+
+
+<hr/>
+
+
+<!-- * * * * * * * * * * * * * * -->
+<pre><code class="language-scheme line-numbers">;; chez scheme
 
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
