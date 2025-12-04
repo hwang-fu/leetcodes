@@ -52,6 +52,16 @@ function uniquePaths2(m: number, n: number): number {
   return backtrack(0, 0);
 };
 
+function uniquePaths3(m: number, n: number): number {
+  // The problem is essentially choosing (m-1) downs from (m+n-2) total moves = C(m+n-2, m-1)
+  const N = m + n - 2;
+  const k = Math.min(m - 1, n - 1);
 
+  let ans = 1;
+  for (let i = 1; i <= k; i++) {
+      ans = ans * (N - k + i) / i;
+  }
+  return ans;
+};
 
 export {};
