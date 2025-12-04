@@ -36,6 +36,7 @@ Me solving leetcode problems.
 - [Problem 46](46/)
 - [Problem 54](54/)
 - [Problem 58](58/)
+- [Problem 62](62/)
 - [Problem 72](72/)
 - [Problem 76](76/)
 - [Problem 141](141/)
