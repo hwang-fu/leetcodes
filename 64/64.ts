@@ -89,5 +89,31 @@ function minPathSum3(grid: number[][]): number {
   return dp[n-1];
 };
 
+function minPathSum4(grid: number[][]): number {
+  // O(m x n) time, O(1) space
+
+  const m = grid.length;
+  const n = grid[0].length;
+
+  // fill 1st row
+  for (let j = 1; j < n; j++) {
+    grid[0][j] += grid[0][j-1];
+  }
+
+  // fill 1st column
+  for (let i = 1; i < m; i++) {
+    grid[i][0] += grid[i-1][0];
+  }
+
+  // fill the rest
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      grid[i][j] += Math.min(grid[i-1][j], grid[i][j-1]);
+    }
+  }
+
+  return grid[m-1][n-1];
+};
+
 
 export {};
