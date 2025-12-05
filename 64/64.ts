@@ -34,6 +34,9 @@ function minPathSum(grid: number[][]): number {
 };
 
 function minPathSum2(grid: number[][]): number {
+  // Bottom-up DP
+  // O(m x n) time, O(m x n) space
+
   const m = grid.length;
   const n = grid[0].length;
 
@@ -61,5 +64,30 @@ function minPathSum2(grid: number[][]): number {
 
   return dp[m-1][n-1];
 };
+
+function minPathSum3(grid: number[][]): number {
+  // O(m x n) time, O(n) space
+
+  const m = grid.length;
+  const n = grid[0].length;
+
+  const dp: number[] = Array(n).fill(0);
+
+  // init 1st row
+  for (let j = 1; j < n; j++) {
+    dp[j] = dp[j-1] + grid[0][j];
+  }
+
+  // proceed remaining rows
+  for (let i = 1; i < m; i++) {
+    dp[0] += grid[i][0];
+    for (let j = 1; j < n; j++) {
+      dp[j] = grid[i][j] + Math.min(dp[j], dp[j-1]);
+    }
+  }
+
+  return dp[n-1];
+};
+
 
 export {};
