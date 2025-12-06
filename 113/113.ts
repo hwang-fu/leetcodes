@@ -42,4 +42,53 @@ function pathSum(root: TreeNode | null, targetSum: number): number[][] {
   return ans;
 };
 
+function pathSum2(root: TreeNode | null, targetSum: number): number[][] {
+  if (!root) {
+    return [];
+  }
+
+  const ans: number[][] = [];
+  const path: number[] = [];
+
+  type Frame = { node: TreeNode; rest: number; visited: boolean };
+
+  const stack: Frame[] = [
+    { node: root, rest: targetSum, visited: false },
+  ];
+
+  while (stack.length) {
+    const { node, rest, visited } = stack.pop()!;
+
+    if (visited) {
+      path.pop();
+      continue;
+    }
+
+    // pre-order: enter node
+    const val = node.val;
+    path.push(val);
+    const next = rest - val;
+
+    // post-order marker to pop later
+    stack.push({ node, rest, visited: true });
+
+    if (!node.left && !node.right) {
+      if (next === 0) {
+        ans.push(path.slice());
+      }
+      continue;
+    }
+
+    // right push first so left is processed earlier.
+    if (node.right) {
+      stack.push({ node: node.right, rest: next, visited: false });
+    }
+    if (node.left) {
+      stack.push({ node: node.left, rest: next, visited: false });
+    }
+  }
+
+  return ans;
+};
+
 export {};
