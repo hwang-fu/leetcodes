@@ -40,4 +40,17 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
   return dps(root, 0);
 };
 
+function hasPathSum2(root: TreeNode | null, targetSum: number): boolean {
+  if (!root) {
+    return false;
+  }
+
+  if (!root.left && !root.right) {
+    return targetSum === root.val;
+  }
+
+  return hasPathSum2(root.left, targetSum - root.val) ||
+         hasPathSum2(root.right, targetSum - root.val);
+};
+
 export {};
