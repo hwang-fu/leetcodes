@@ -44,6 +44,7 @@ Me solving leetcode problems.
 - [Problem 104](104/)
 - [Problem 112](112/)
 - [Problem 113](113/)
+- [Problem 128](128/)
 - [Problem 137](137/)
 - [Problem 141](141/)
 - [Problem 150](150/)
