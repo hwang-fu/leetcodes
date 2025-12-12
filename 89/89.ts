@@ -31,4 +31,12 @@ function grayCode(n: number): number[] {
   return ans;
 };
 
+function grayCode2(n: number): number[] {
+  const ans: number[] = [];
+  for (let i = 0; i < (1 << n); i++) {
+    ans.push(i ^ (i >> 1));
+  }
+  return ans;
+};
+
 export {};
