@@ -194,6 +194,48 @@ const evalRPN2 = (tokens: string[]): number =&gt; {
 
 
 <!-- * * * * * * * * * * * * * * -->
+<pre><code class="language-haskell line-numbers">-- Haskell
+evalRPN :: [String] -&gt; Int
+evalRPN [] = 0
+evalRPN tokens =
+    eval tokens []
+  where
+    eval :: [String] -&gt; [Int] -&gt; Int
+    eval [] [n]         = n
+    eval [] _           = error "malformed reverse Polish notation!"
+    eval (tk:tks) stack =
+      case tk of
+        "+" -&gt; let (r:l:rest) = stack in eval tks ((l + r) : rest)
+        "-" -&gt; let (r:l:rest) = stack in eval tks ((l - r) : rest)
+        "*" -&gt; let (r:l:rest) = stack in eval tks ((l * r) : rest)
+        "/" -&gt; let (r:l:rest) = stack in eval tks ((l `quot` r) : rest) -- truncates toward 0
+        _   -&gt; eval tks (read tk : stack) -- read t :: Int converts "123" or "-5" into an Int.
+
+
+evaluateReversePolishNotation :: [String] -&gt; Int
+evaluateReversePolishNotation =
+    head . foldl step []
+  where
+    step :: [Int] -&gt; String -&gt; [Int]
+    step stack token =
+      case token of
+        "+" -&gt; binOp (+)  stack
+        "-" -&gt; binOp (-)  stack
+        "*" -&gt; binOp (*)  stack
+        "/" -&gt; binOp quot stack
+        _   -&gt; (read token) : stack
+
+    binOp :: (Int -&gt; Int -&gt; Int) -&gt; [Int] -&gt; [Int]
+    binOp op (r:l:rest) = (l `op` r) : rest
+    binOp _ _           = error "malformed reverse Polish notation!"
+</code></pre>
+<!-- * * * * * * * * * * * * * * -->
+
+
+<hr/>
+
+
+<!-- * * * * * * * * * * * * * * -->
 <footer>
     <p>&copy; 2025 Hwangfucius. All rights reserved.</p>
 </footer>
