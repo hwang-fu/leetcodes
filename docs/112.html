@@ -120,7 +120,60 @@
 
 <!-- * * * * * * * * * * * * * * -->
 <pre><code class="language-ts line-numbers">// TypeScript
+ class TreeNode {
+  val: number
+  left: TreeNode | null
+  right: TreeNode | null
+  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+  }
+}
 
+function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
+  if (root === null) {
+    return false;
+  }
+
+  const isLeaf = (node: TreeNode): boolean =&gt; {
+    return (node.left === null) &amp;&amp; (node.right === null);
+  }
+
+  const stack: TreeNode[] = [];
+  const dps = (node: TreeNode, sum: number): boolean =&gt; {
+    const val = node.val;
+
+    if (isLeaf(node)) {
+      return targetSum === (sum + val);
+    }
+
+    if (node.left &amp;&amp; dps(node.left, sum + val)) {
+      return true;
+    }
+
+    if (node.right &amp;&amp; dps(node.right, sum + val)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  return dps(root, 0);
+};
+
+function hasPathSum2(root: TreeNode | null, targetSum: number): boolean {
+  if (!root) {
+    return false;
+  }
+
+  if (!root.left &amp;&amp; !root.right) {
+    return targetSum === root.val;
+  }
+
+  return hasPathSum2(root.left, targetSum - root.val) ||
+         hasPathSum2(root.right, targetSum - root.val);
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
