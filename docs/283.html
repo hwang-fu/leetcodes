@@ -3,12 +3,10 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>LeetCode #4 – Median of Two Sorted Arrays (TypeScript)</title>
+    <title>LeetCode #283 - Move Zeroes</title>
 
-    <!-- Prism line-numbers theme -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.css" />
 
-    <!-- Prism core + autoloader + line-numbers -->
     <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"
             data-prismjs-autoloader-path="https://cdn.jsdelivr.net/npm/prismjs/components/"></script>
@@ -121,42 +119,8 @@
 
 
 <!-- * * * * * * * * * * * * * * -->
-<pre><code class="language-ts line-numbers">/**
- Do not return anything, modify nums in-place instead.
- */
-function moveZeroes(nums: number[]): void {
-    const n  = nums.length;
-    if (n === 1) {
-        return;
-    }
+<pre><code class="language-ts line-numbers">// TypeScript
 
-    let l = 0;
-    let r = 0;
-    for (r = 0; r &lt; n; r++) {
-        if (nums[r] === 0) {
-            continue;
-        }
-        [nums[l], nums[r]] = [nums[r], nums[l]];
-        l++;
-    }
-};
-
-const moveZeroes1 = moveZeroes;
-
-const moveZeroes2 = (nums: number[]): void =&gt; {
-    // 1. move all non-zero elements to the front.
-    let l = 0;
-    for (let r = 0; r &lt; nums.length; r++) {
-        if (nums[i] !== 0) {
-            nums[l++] = nums[r];
-        }
-    }
-
-    // 2. fill the rest with zeros.
-    while (l &lt; nums.length) {
-        nums[l++] = 0;
-    }
-};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
