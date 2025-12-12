@@ -120,7 +120,26 @@
 
 <!-- * * * * * * * * * * * * * * -->
 <pre><code class="language-ts line-numbers">// TypeScript
+function singleNumber(nums: number[]): number {
+  let ans = 0;
 
+  // 32 bits for signed integer
+  for (let i = 0; i &lt; 32; i++) {
+    let count  = 0;
+
+    for (const num of nums) {
+      if ((num &gt;&gt; i) &amp; 1) {
+        count++;
+      }
+    }
+
+    if (count % 3 === 1) {
+      ans |= (1 &lt;&lt; i);
+    }
+  }
+
+  return ans;
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
