@@ -40,6 +40,7 @@ Me solving leetcode problems.
 - [Problem 70](70/)
 - [Problem 72](72/)
 - [Problem 76](76/)
+- [Problem 89](89/)
 - [Problem 94](94/)
 - [Problem 104](104/)
 - [Problem 112](112/)
