@@ -25,6 +25,7 @@ Me solving leetcode problems.
 - [Problem 22](22/)
 - [Problem 23](23/)
 - [Problem 24](24/)
+- [Problem 25](25/)
 - [Problem 26](26/)
 - [Problem 27](27/)
 - [Problem 28](28/)
