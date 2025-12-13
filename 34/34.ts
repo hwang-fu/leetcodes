@@ -63,4 +63,54 @@ function searchRange(nums: number[], target: number): number[] {
   return ans;
 };
 
+function searchRange2(nums: number[], target: number): number[] {
+  const n = nums.length;
+
+  const findLeftIndex = () => {
+    let ans = -1;
+
+    let l = 0;
+    let r = n - 1;
+
+    while (l <= r) {
+      const m = Math.floor((l + r) / 2);
+
+      if (nums[m] < target) {
+        l = m + 1;
+      } else if (nums[m] > target) {
+        r = m - 1;
+      } else {
+        ans = m;
+        r = m - 1;
+      }
+    }
+
+    return ans;
+  };
+
+  const findRightIndex = () => {
+    let ans = -1;
+
+    let l = 0;
+    let r = n - 1;
+
+    while (l <= r) {
+      const m = Math.floor((l + r) / 2);
+
+      if (nums[m] < target) {
+        l = m + 1;
+      } else if (nums[m] > target) {
+        r = m - 1;
+      } else {
+        ans = m;
+        l = m + 1;
+      }
+    }
+
+    return ans;
+  };
+
+  return [findLeftIndex(), findRightIndex()];
+}
+
 export {};
