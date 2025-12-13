@@ -42,6 +42,7 @@ Me solving leetcode problems.
 - [Problem 58](58/)
 - [Problem 62](62/)
 - [Problem 66](66/)
+- [Problem 67](67/)
 - [Problem 70](70/)
 - [Problem 72](72/)
 - [Problem 76](76/)
