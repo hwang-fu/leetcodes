@@ -32,6 +32,7 @@ Me solving leetcode problems.
 - [Problem 29](29/)
 - [Problem 31](31/)
 - [Problem 32](32/)
+- [Problem 33](33/)
 - [Problem 35](35/)
 - [Problem 36](36/)
 - [Problem 38](38/)
