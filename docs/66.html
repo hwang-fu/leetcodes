@@ -120,7 +120,23 @@
 
 <!-- * * * * * * * * * * * * * * -->
 <pre><code class="language-ts line-numbers">// TypeScript
+function plusOne(digits: number[]): number[] {
+  const ans: number[] = [];
 
+  let carry = 1;
+  const n = digits.length;
+  for (let i = n - 1; i &gt;= 0; i--) {
+    const sum = carry + digits[i];
+    ans.push(sum % 10);
+    carry = Math.floor(sum / 10);
+  }
+
+  if (carry) {
+    ans.push(carry);
+  }
+
+  return ans.reverse();
+};
 </code></pre>
 <!-- * * * * * * * * * * * * * * -->
 
