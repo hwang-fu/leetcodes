@@ -206,6 +206,42 @@ function isValidSudoku2(board: string[][]): boolean {
 
 
 <!-- * * * * * * * * * * * * * * -->
+<pre><code class="language-hs line-numbers">-- Haskell
+isValidSudoku :: [[Char]] -&gt; Bool
+isValidSudoku board =
+  (all isValid board)
+  &amp;&amp; (all isValid (transpose board))
+  &amp;&amp; (all isValid (mapSubgrids board))
+
+isValid :: [Char] -&gt; Bool
+isValid cs =
+  let
+    digits = filter (\c -&gt; c /= '.') cs
+  in
+    length digits == length (distinct digits)
+
+distinct :: Eq a =&gt; [a] -&gt; [a]
+distinct [] = []
+distinct (x:xs) = x : distinct (filter (/= x) xs)
+
+transpose :: [[Char]] -&gt; [[Char]]
+transpose [] = []
+transpose ([]:_) = []
+transpose board = map head board : transpose (map tail board)
+
+mapSubgrids :: [[Char]] -&gt; [[Char]]
+mapSubgrids board = [mapSubgrid board r c | r &lt;- [0, 3, 6], c &lt;- [0, 3, 6]]
+
+mapSubgrid :: [[Char]] -&gt; Int -&gt; Int -&gt; [Char]
+mapSubgrid board r c = concat [take 3 (drop c (board !! (r + i))) | i &lt;- [0..2]]
+</code></pre>
+<!-- * * * * * * * * * * * * * * -->
+
+
+<hr/>
+
+
+<!-- * * * * * * * * * * * * * * -->
 <footer>
     <p>&copy; 2025 Hwangfucius. All rights reserved.</p>
 </footer>
