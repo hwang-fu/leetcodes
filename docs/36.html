@@ -242,6 +242,127 @@ mapSubgrid board r c = concat [take 3 (drop c (board !! (r + i))) | i &lt;- [0..
 
 
 <!-- * * * * * * * * * * * * * * -->
+<pre><code class="language-rs line-numbers">// Rust
+impl Solution {
+    pub fn is_valid_sudoku(board: Vec&lt;Vec&lt;char&gt;&gt;) -&gt; bool {
+        let mut rows    = [[false; 9]; 9];
+        let mut columns = [[false; 9]; 9];
+        let mut boxes   = [[false; 9]; 9];
+
+        for i in 0..9 {
+            for j in 0..9 {
+                if let Some(d) = board[i][j].to_digit(10) {
+                    let d = (d - 1) as usize;
+                    let box_id = (i / 3) * 3 + j / 3;
+                    if rows[i][d] || columns[j][d] || boxes[box_id][d] {
+                        return false;
+                    }
+
+                    rows[i][d] = true;
+                    columns[j][d] = true;
+                    boxes[box_id][d] = true;
+                }
+            }
+        }
+
+        true
+    }
+}
+
+// --- --- --- ---
+
+impl Solution {
+    pub fn is_valid_sudoku(board: Vec&lt;Vec&lt;char&gt;&gt;) -&gt; bool {
+        use std::collections::HashSet;
+
+        for row in 0..9 {
+            let mut set = HashSet::new();
+            for col in 0..9 {
+                let cell = board[row][col];
+                if cell == '.' {
+                    continue;
+                }
+                if set.contains(&amp;cell) {
+                    return false;
+                }
+                set.insert(cell);
+            }
+        }
+
+        for col in 0..9 {
+            let mut set = HashSet::new();
+            for row in 0..9 {
+                let cell = board[row][col];
+                if cell == '.' {
+                    continue;
+                }
+                if set.contains(&amp;cell) {
+                    return false;
+                }
+                set.insert(cell);
+            }
+        }
+
+        for k in 0..9 {
+            let mut set = HashSet::new();
+            for i in 0..3 {
+                for j in 0..3 {
+                    let row = (k / 3) * 3 + i;
+                    let col = (k % 3) * 3 + j;
+                    let cell = board[row][col];
+                    if cell == '.' {
+                        continue;
+                    }
+                    if set.contains(&amp;cell) {
+                        return false;
+                    }
+                    set.insert(cell);
+                }
+            }
+        }
+
+        true
+    }
+}
+
+// --- --- --- ---
+
+impl Solution {
+    pub fn is_valid_sudoku(board: Vec&lt;Vec&lt;char&gt;&gt;) -&gt; bool {
+        use std::collections::HashSet;
+
+        let mut rows: Vec&lt;HashSet&lt;char&gt;&gt; = (0..9).map(|_| HashSet::new()).collect();
+        let mut cols: Vec&lt;HashSet&lt;char&gt;&gt; = (0..9).map(|_| HashSet::new()).collect();
+        let mut subgrids: Vec&lt;HashSet&lt;char&gt;&gt; = (0..9).map(|_| HashSet::new()).collect();
+
+        for r in 0..9 {
+            for c in 0..9 {
+                let cell = board[r][c];
+                if cell == '.' {
+                    continue;
+                }
+                let idx = (r / 3) * 3 + c / 3;
+                if rows[r].contains(&amp;cell) || cols[c].contains(&amp;cell) || subgrids[idx].contains(&amp;cell) {
+                    return false;
+                }
+
+                rows[r].insert(cell);
+                cols[c].insert(cell);
+                subgrids[idx].insert(cell);
+            }
+        }
+
+        true
+    }
+}
+</code></pre>
+<!-- * * * * * * * * * * * * * * -->
+
+
+<hr/>
+
+
+<!-- * * * * * * * * * * * * * * -->
 <footer>
     <p>&copy; 2025 Hwangfucius. All rights reserved.</p>
 </footer>
