@@ -16,4 +16,19 @@ function generate(numRows: number): number[][] {
   return ans;
 };
 
+function generate2(numRows: number): number[][] {
+  // combinatorial formula
+  let ans: number[][] = [];
+
+  for (let i = 0; i < numRows; i++) {
+    const row: number[] = [1];
+    for (let j = 1; j <= i; j++) {
+      row.push(row[j-1] * (i - j + 1) / j);
+    }
+    ans.push(row);
+  }
+
+  return ans;
+};
+
 export {};
