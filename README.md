@@ -68,4 +68,5 @@ Me solving leetcode problems.
 - [Problem 238](238/)
 - [Problem 283](283/)
 - [Problem 347](347/)
+- [Problem 392](392/)
 - [Problem 509](509/)
