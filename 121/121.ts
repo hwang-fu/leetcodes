@@ -22,4 +22,16 @@ function maxProfit(prices: number[]): number {
   return best;
 };
 
+function maxProfit2(prices: number[]): number {
+  let best = 0;
+  let lowest = Infinity;
+
+  for (const price of prices) {
+    lowest = Math.min(lowest, price);
+    best = Math.max(best, price - lowest);
+  }
+
+  return best;
+};
+
 export {};
