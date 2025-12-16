@@ -10,4 +10,13 @@ function missingNumber(nums: number[]): number {
   throw Error('unreachable');
 };
 
+function missingNumber2(nums: number[]): number {
+  const n = nums.length;
+  let xor = nums.length;
+  for (let i = 0; i < n; i++) {
+    xor ^= (i ^ nums[i]);
+  }
+  return xor;
+};
+
 export {};
