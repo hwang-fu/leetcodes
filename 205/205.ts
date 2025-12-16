@@ -49,4 +49,30 @@ function isIsomorphic2(s: string, t: string): boolean {
   return true;
 };
 
+function isIsomorphic3(s: string, t: string): boolean {
+  const n = s.length;
+  const m = t.length;
+  if (n !== m) {
+    return false;
+  }
+
+  // ascii range 0 ~ 127
+  const s2t = new Int8Array(128);
+  const t2s = new Int8Array(128);
+
+  for (let i = 0; i < n; i++) {
+    const s_i = s.charCodeAt(i);
+    const t_i = t.charCodeAt(i);
+
+    if (s2t[s_i] === 0 && t2s[t_i] === 0) {
+      s2t[s_i] = t_i;
+      t2s[t_i] = s_i;
+    } else if (s2t[s_i] !== t_i || t2s[s_i] !== s_i) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 export {};
