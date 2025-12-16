@@ -66,6 +66,7 @@ Me solving leetcode problems.
 - [Problem 206](206/)
 - [Problem 217](217/)
 - [Problem 238](238/)
+- [Problem 242](242/)
 - [Problem 283](283/)
 - [Problem 338](338/)
 - [Problem 347](347/)
