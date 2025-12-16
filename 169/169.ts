@@ -16,4 +16,19 @@ function majorityElement(nums: number[]): number {
   throw new Error('unreachable');
 };
 
+function majorityElement2(nums: number[]): number {
+  // Boyer-Moore Voting Algorithm
+  let candidate = nums[0];
+  let count = 0;
+
+  for (const num of nums) {
+    if (count === 0) {
+      candidate = num;
+    }
+    count += (num === candidate) ? 1 : -1;
+  }
+
+  return candidate;
+};
+
 export {};
