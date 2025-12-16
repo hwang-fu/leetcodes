@@ -18,4 +18,22 @@ function isAnagram(s: string, t: string): boolean {
   return map.size === 0;
 };
 
+function isAnagram2(s: string, t: string): boolean {
+  const n = s.length;
+  const m = t.length;
+  if (m !== n) {
+    return false;
+  }
+
+  // since `s` and `t` only consist of English lower letters, there are only 26 such letters.
+  const counts = new Int32Array(26).fill(0);
+  const a = 'a'.charCodeAt(0);
+  for (let i = 0; i < n; i++) {
+    counts[s.charCodeAt(i) - a]++;
+    counts[t.charCodeAt(i) - a]--;
+  }
+
+  return counts.every((c) => c === 0);
+};
+
 export {};
