@@ -53,4 +53,29 @@ function isPalindrome2(s: string): boolean {
   return true;
 };
 
+function isPalindrome3(s: string): boolean {
+  const n = s.length;
+  const isAlphaNum = (idx : number) => {
+    if (idx < 0 && idx >= n) return false;
+    const code = s.charCodeAt(idx);
+    return (code >= 48 && code <= 57) ||   // '0'-'9'
+           (code >= 65 && code <= 90) ||   // 'A'-'Z'
+           (code >= 97 && code <= 122);    // 'a'-'z'
+  };
+
+  let l = 0;
+  let r = n - 1;
+  while (l < r) {
+    while (l < r && !isAlphaNum(l)) l++;
+    while (l < r && !isAlphaNum(r)) r--;
+    if (s[l].toLowerCase() !== s[r].toLowerCase()) {
+      return false;
+    }
+    l++;
+    r--;
+  }
+
+  return true;
+};
+
 export {};
