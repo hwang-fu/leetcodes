@@ -46,6 +46,7 @@ Me solving leetcode problems.
 - [Problem 64](64/)
 - [Problem 66](66/)
 - [Problem 67](67/)
+- [Problem 69](69/)
 - [Problem 70](70/)
 - [Problem 72](72/)
 - [Problem 76](76/)
